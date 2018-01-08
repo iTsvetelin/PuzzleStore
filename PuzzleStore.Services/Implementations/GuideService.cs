@@ -34,6 +34,15 @@ namespace PuzzleStore.Services.Implementations
             this.db.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+             var guide = this.db
+                .Guides
+                .Find(id);
+            this.db.Remove(guide);
+            this.db.SaveChanges();
+        }
+
         public Guide Details(int id)
             => this.db
                 .Guides

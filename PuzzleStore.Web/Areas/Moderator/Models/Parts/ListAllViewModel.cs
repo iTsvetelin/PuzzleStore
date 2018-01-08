@@ -11,6 +11,10 @@ namespace PuzzleStore.Web.Areas.Moderator.Models.Parts
 
         public string PuzzleFullName { get; set; }
 
+        public string PartPosition { get; set; }
+
+        public string UserName { get; set; }
+
         public int DaysWentBy { get; set; }
         
     }

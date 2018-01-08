@@ -10,6 +10,8 @@
         <tr>
             <th>Id</th>
             <th>Puzzle Name</th>
+            <th>X, Y</th>
+            <th>User</th>
             <th>Days</th>
             <th></th>
         </tr>
@@ -20,6 +22,8 @@
             <tr>
                 <th>@part.Id</th>
                 <th>@part.PuzzleFullName</th>
+                <th>@part.PartPosition</th>
+                <th>@part.UserName</th>
                 <th>@part.DaysWentBy</th>
                 <th><a href="/moderator/parts/destroy/@part.Id" class="btn btn-danger">Remove</a></th>
             </tr>

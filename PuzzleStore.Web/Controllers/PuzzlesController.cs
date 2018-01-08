@@ -8,6 +8,7 @@ using PuzzleStore.Web.Models.Puzzles;
 using PuzzleStore.Services;
 using Microsoft.AspNetCore.Identity;
 using PuzzleStore.Data.Models;
+using PuzzleStore.Web.Infrastructure;
 
 namespace PuzzleStore.Web.Controllers
 {
@@ -48,9 +49,10 @@ namespace PuzzleStore.Web.Controllers
                 this.userManager.GetUserId(User)
                 );
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(DisplayAll));
         }
 
+        [Authorize(Roles = "Administrator,Moderator")]
         public IActionResult Edit(int Id)
         {
             var puzzleModel = this.puzzles.FindById(Id);
@@ -72,6 +74,7 @@ namespace PuzzleStore.Web.Controllers
             //forma s modela
         }
 
+        [Authorize(Roles = "Administrator,Moderator")]
         [HttpPost]
         public IActionResult Edit(int Id, AddPuzzleViewModel puzzleModel)
         {
@@ -87,15 +90,17 @@ namespace PuzzleStore.Web.Controllers
                 puzzleModel.Description
                 );
 
-            return RedirectToAction(nameof(PuzzlesController.DisplayAll), "Puzzle");
+            return RedirectToAction(nameof(DisplayAll));
         }
 
+        [Authorize(Roles = "Administrator,Moderator")]
         public IActionResult Destroy(int id)
         {
             TempData["puzleId"] = id;
             return this.View();
         }
 
+        [Authorize(Roles = "Administrator,Moderator")]
         [HttpPost]
         public IActionResult Destroy()
         {

@@ -7,5 +7,13 @@
 
 <h2>@Model.Title</h2>
 
+@if (User.IsInRole(GlobalConstants.ModeratorRole) ||
+                                         User.IsInRole(GlobalConstants.AdministratorRole))
+{
+    <div>
+        <a href="/guides/delete/@Model.Id" class="btn btn-danger">Delete</a>
+    </div>
+}
+
 <p>@Model.Content</p>
 

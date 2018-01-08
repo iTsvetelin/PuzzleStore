@@ -14,7 +14,11 @@
                 <th>Title</th>
                 <th>Image</th>
                 <th>Price</th>
-                <th>Actions </th>
+                @if (User.IsInRole(GlobalConstants.ModeratorRole) ||
+                 User.IsInRole(GlobalConstants.AdministratorRole))
+                {
+                    <th>Actions </th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -25,14 +29,16 @@
                     <th>@puzzle.Title - @puzzle.PartsCount pcs. </th>
                     <th><img src="@puzzle.ImageUrl" alt="puzzle image" style="position:center; max-height:150px; max-width:400px;" /></th>
                     <th>@puzzle.Price лв. </th>
-                    <th><a class="btn btn-warning" href="/Puzzles/Edit/@puzzle.Id">Edit</a><br />
-                    <a class="btn btn-danger"  href="/Puzzles/Destroy/@puzzle.Id">Delete</a>
-                    @if (User.IsInRole(GlobalConstants.ModeratorRole))
-                    {
-                        <br />
-                        <a class="btn btn-default" href="/moderator/parts/create/@puzzle.Id">Parts</a>
+                    @if (User.IsInRole(GlobalConstants.ModeratorRole) ||
+                   User.IsInRole(GlobalConstants.AdministratorRole))
+                    { <th>
+                            <a class="btn btn-warning" href="/Puzzles/Edit/@puzzle.Id">Edit</a><br />
+                            <a class="btn btn-danger" href="/Puzzles/Destroy/@puzzle.Id">Delete</a>
+                            <br />
+                            <a class="btn btn-default" href="/moderator/parts/create/@puzzle.Id">Parts</a>
+                            
+                        </th>
                     }
-                    </th>
                 </tr>
 
             }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PuzzleStore.Services;
 using PuzzleStore.Web.Models.Guides;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PuzzleStore.Web.Controllers
 {
@@ -29,6 +30,7 @@ namespace PuzzleStore.Web.Controllers
 
             var result = new GuideDetailsViewModel
             {
+                Id = guide.Id,
                 Title = guide.Title,
                 Content = guide.Content
             };
@@ -49,6 +51,22 @@ namespace PuzzleStore.Web.Controllers
 
             this.guides.Create(model.Title, model.Content);
             
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Administrator,Moderator")]
+        public IActionResult Delete(int id)
+        {
+            TempData["guideId"] = id;
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator,Moderator")]
+        [HttpPost]
+        public IActionResult Delete()
+        {
+            this.guides.Delete(int.Parse(TempData["guideId"].ToString()));
+
             return RedirectToAction(nameof(Index));
         }
 

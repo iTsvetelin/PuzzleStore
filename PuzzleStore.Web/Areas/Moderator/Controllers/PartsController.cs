@@ -30,7 +30,7 @@ namespace PuzzleStore.Web.Areas.Moderator.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var result = new List<ListAllViewModel>();
 
@@ -40,10 +40,13 @@ namespace PuzzleStore.Web.Areas.Moderator.Controllers
             foreach(var part in parts)
             {
                 var puzzle = this.puzzles.FindById(part.PuzzleId);
+                var user = await this.userManager.FindByIdAsync(part.UserId);
                 var item = new ListAllViewModel
                 {
                     Id = part.Id,
                     PuzzleFullName = $"{puzzle.Manufacturer} - {puzzle.Title}",
+                    PartPosition = $"{part.XCordinate}, {part.YCordinate}",
+                    UserName = user.UserName,
                     DaysWentBy = (DateTime.UtcNow - part.Initialized).Days
                 };
                 result.Add(item);
