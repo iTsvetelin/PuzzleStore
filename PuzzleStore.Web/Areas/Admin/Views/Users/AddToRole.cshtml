@@ -1,0 +1,30 @@
+﻿@model UserWithRolesViewModel
+@{
+    ViewData["Title"] = " User Roles";
+}
+
+<h2>Roles for user @Model.Email</h2>
+
+
+
+@if (!Model.Roles.Any())
+{
+    <h2>No roles for user</h2>
+}
+
+<ul>
+@foreach (var role in Model.Roles)
+{
+
+    <li>@role</li>
+}
+
+</ul>
+
+<form asp-controller="Users" asp-action="AddToRole" method="post">
+    <input type="hidden" name="UserId" value="@Model.Id" />
+    <select name="allroles" asp-items="@Model.AllRoles" class="form-control"></select>
+    <input class="btn btn-sm btn-primary" type="submit" value="Add To Role" />     
+</form>
+<a href="/admin/users/index" class="btn btn-default">Go back</a>
+

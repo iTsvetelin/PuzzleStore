@@ -1,0 +1,46 @@
+﻿@model AdminUsersListingViewModel
+@{
+    ViewData["Title"] = "User Administration";
+}
+
+@if(TempData["SuccesMessage"] != null)
+{
+    <h2 class="text-success text-center">@TempData["SuccesMessage"]</h2>
+
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a href="/admin/users/create" class="btn btn-primary">Create User</a>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+
+            <tr>
+                <th>@user.UserName</th>
+                <th>@user.Email</th>
+                <!--<th>
+                    
+                </th>-->
+                <th>
+                    <a href="/admin/users/changepassword/@user.Id" class="btn btn-warning">Change Password</a>
+                    <a href="/admin/users/delete/@user.Id" class="btn btn-danger">Delete</a>
+                </th>
+                <th>
+                    <a href="/admin/users/addtorole/@user.Id" class="btn btn-default">Roles</a>
+                </th>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ListAllViewModel>
+@{
+    ViewData["Title"] = "All Parts";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Puzzle Name</th>
+            <th>Days</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var part in Model)
+        {
+            <tr>
+                <th>@part.Id</th>
+                <th>@part.PuzzleFullName</th>
+                <th>@part.DaysWentBy</th>
+                <th><a href="/moderator/parts/destroy/@part.Id" class="btn btn-danger">Remove</a></th>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

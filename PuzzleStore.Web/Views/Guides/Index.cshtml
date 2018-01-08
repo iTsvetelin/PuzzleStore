@@ -1,0 +1,28 @@
+﻿@model DisplayGuidesViewModel
+@{
+    ViewData["Title"] = "Guides";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a href="/guides/create" class="btn btn-default">Create Guide</a>
+}
+
+@foreach(var onsite in Model.OnSite)
+{
+    <div>
+        @onsite.Title <a href="/guides/details/@onsite.Id">View Details</a>
+    </div>
+
+}
+
+@foreach(var related in Model.Related)
+{
+    <div>
+        @related.Title <a href="@related.Url">Go To Link</a>
+    </div>
+
+}
+

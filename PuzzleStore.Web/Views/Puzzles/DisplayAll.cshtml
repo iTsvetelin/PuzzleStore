@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DisplayPuzzlesViewModel>
+
+@{
+    ViewData["Title"] = "All Puzzles";
+}
+
+<h2>@ViewData["Title"] <a href="/Puzzles/Add">Add Puzzle</a></h2>
+
+<div class="row">
+    <table class="col-md-10 table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var puzzle in Model)
+            {
+                <tr>
+                    <th>@puzzle.Id</th>
+                    <th>@puzzle.Title - @puzzle.PartsCount pcs. </th>
+                    <th><img src="@puzzle.ImageUrl" alt="puzzle image" style="position:center; max-height:150px; max-width:400px;" /></th>
+                    <th>@puzzle.Price лв. </th>
+                    <th><a class="btn btn-warning" href="/Puzzles/Edit/@puzzle.Id">Edit</a><br />
+                    <a class="btn btn-danger"  href="/Puzzles/Destroy/@puzzle.Id">Delete</a>
+                    @if (User.IsInRole(GlobalConstants.ModeratorRole))
+                    {
+                        <br />
+                        <a class="btn btn-default" href="/moderator/parts/create/@puzzle.Id">Parts</a>
+                    }
+                    </th>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
